@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  duckdns:
+    image: ghcr.io/linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+      - SUBDOMAINS=twittertracker.duckdns.org
+      - TOKEN=3c89ab94-64f8-4717-b316-adcc1a5fe89a
+      - LOG_FILE=false 
+    restart: unless-stopped
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    image: "ing-soft-back"
+    ports:
+      - "5010:5010"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    image: "ing-soft-front"
+    ports:
+      - "3000:3000"

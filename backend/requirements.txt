@@ -1,0 +1,4 @@
+flask
+tweepy
+textblob
+flask-cors
